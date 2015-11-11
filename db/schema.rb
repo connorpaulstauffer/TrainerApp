@@ -11,10 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109143839) do
+ActiveRecord::Schema.define(version: 20151111142339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "membership_request_responses", force: :cascade do |t|
+    t.integer  "membership_request_id", null: false
+    t.integer  "user_id"
+    t.integer  "trainer_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "membership_request_responses", ["membership_request_id"], name: "index_membership_request_responses_on_membership_request_id", using: :btree
+  add_index "membership_request_responses", ["trainer_id"], name: "index_membership_request_responses_on_trainer_id", using: :btree
+  add_index "membership_request_responses", ["user_id"], name: "index_membership_request_responses_on_user_id", using: :btree
+
+  create_table "membership_requests", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "trainer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["trainer_id"], name: "index_memberships_on_trainer_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "trainers", force: :cascade do |t|
     t.integer  "user_id"
