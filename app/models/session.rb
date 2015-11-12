@@ -15,4 +15,8 @@ class Session < ActiveRecord::Base
 
 	belongs_to :user
 
+  def self.generate_session_token
+    SecureRandom::urlsafe_base64
+  end	
+
 end
