@@ -18,4 +18,6 @@ class User < ActiveRecord::Base
 
 	has_one :trainer
 
+	has_many :sessions
+
 end
